@@ -1,19 +1,35 @@
-const returnFirstTwoDrivers = function (drivers=[]){
-    return drivers.slice(0,2);
-}
-const returnLastTwoDrivers = function(drivers=[]){
-    return drivers.slice(2);
-}
-const selectingDrivers=[
-    returnFirstTwoDrivers,returnLastTwoDrivers
-];
-const createFareMultiplier=function(fare){
-    return function(integer){
-        return fare*integer
+function distanceFromHqInBlocks(blocks){
+    if (blocks > 42){
+        return blocks - 42;
+    }
+    else if ( blocks<= 42){
+        return 42 - blocks;
     }
 }
-const fareDoubler= createFareMultiplier(2);
-const fareTripler=createFareMultiplier(3);
-const selectDifferentDrivers= function(drivers,returnLastTwoDrivers){
-    return returnLastTwoDrivers(drivers);
-};
+function distanceFromHqInFeet(blocks){
+    return distanceFromHqInBlocks(blocks)*264;
+}
+function distanceTravelledInFeet(blocks,blocks1) {
+    const distanceTravelledInFeet = (distanceFromHqInFeet(blocks) - distanceFromHqInFeet(blocks1))
+    if ( distanceTravelledInFeet >= 0) {
+        return distanceTravelledInFeet;
+    } else {
+        return ( distanceTravelledInFeet * -1);
+    }
+  }
+  function calculatesFarePrice(start,destination){
+    const totalFeetTravelled= (distanceTravelledInFeet(start, destination))
+    if (totalFeetTravelled <=400) {
+        return 0;
+    }else if (totalFeetTravelled >=400 && totalFeetTravelled <= 2000) {
+        return ((totalFeetTravelled - 400) * 0.02);
+    }else if (totalFeetTravelled >= 2000 && totalFeetTravelled <= 2500) {
+        return 25;
+    } else {
+        return 'cannot travel that far';
+    }
+  }
+
+
+
+
